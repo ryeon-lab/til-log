@@ -1,11 +1,15 @@
 package com.tillog.til_log.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "til_table")
+@Getter
+@Setter
 public class Til {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,9 +1,13 @@
 package com.tillog.til_log.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity // 이 클래스가 JPA 엔티티임을 선언 - DB 테이블과 매핑되는 객체가 됨
 @Table(name = "def_table") // 실제 매핑될 테이블명 지정 (클래스명 Concept과 테이블명이 다르므로 명시)
+@Getter
+@Setter
 public class Concept {
     @Id // 기본키(PK) 필드임을 선언
     @GeneratedValue(strategy = GenerationType.IDENTITY)

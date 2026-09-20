@@ -1,9 +1,13 @@
 package com.tillog.til_log.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity // JPA 엔티티 선언
 @Table(name = "def_til_connect") // Til 과 Concept의 다대다 관계를 푸는 연결 테이블
+@Getter
+@Setter
 public class DefTilConnect {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
