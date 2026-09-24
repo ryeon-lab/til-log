@@ -1,6 +1,7 @@
 package com.tillog.til_log.service;
 
 import com.tillog.til_log.domain.Concept;
+import com.tillog.til_log.dto.ConceptRequest;
 import com.tillog.til_log.repository.ConceptRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,14 +14,16 @@ public class ConceptService {
     private final ConceptRepository conceptRepository;
 
     // Create
-    public Concept createConcept(Concept concept) {
+    public Concept createConcept(ConceptRequest request) {
+        Concept concept = new Concept();
+        concept.setDefContext(request.getDefContext());
         return conceptRepository.save(concept);
     }
 
     // Update
-    public Concept updateConcept(Long id, Concept updatedConcept) {
+    public Concept updateConcept(Long id, ConceptRequest request) {
         Concept concept = conceptRepository.findById(id).orElseThrow();
-        concept.setDefContext(updatedConcept.getDefContext());
+        concept.setDefContext(request.getDefContext());
 
         return conceptRepository.save(concept);
     }

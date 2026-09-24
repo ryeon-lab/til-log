@@ -1,6 +1,7 @@
 package com.tillog.til_log.controller;
 
 import com.tillog.til_log.domain.Concept;
+import com.tillog.til_log.dto.ConceptRequest;
 import com.tillog.til_log.service.ConceptService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,8 @@ public class ConceptController {
     private final ConceptService conceptService;
 
     @PostMapping
-    public ResponseEntity<Concept> createConcept(@RequestBody Concept concept) {
-        Concept savedConcept = conceptService.createConcept(concept);
+    public ResponseEntity<Concept> createConcept(@RequestBody ConceptRequest request) {
+        Concept savedConcept = conceptService.createConcept(request);
         return ResponseEntity.ok(savedConcept);
     }
 
@@ -33,8 +34,8 @@ public class ConceptController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Concept> updateConcept(@PathVariable Long id, @RequestBody Concept concept) {
-        Concept updatedConcept = conceptService.updateConcept(id, concept);
+    public ResponseEntity<Concept> updateConcept(@PathVariable Long id, @RequestBody ConceptRequest request) {
+        Concept updatedConcept = conceptService.updateConcept(id, request);
         return ResponseEntity.ok(updatedConcept);
     }
 
