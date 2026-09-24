@@ -1,6 +1,7 @@
 package com.tillog.til_log.controller;
 
 import com.tillog.til_log.domain.Til;
+import com.tillog.til_log.dto.TilRequest;
 import com.tillog.til_log.service.TilService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,8 @@ public class TilController {
     // Create — TIL 작성 (POST /api/tils)
     // 클라이언트가 요청 본문(JSON)으로 보낸 데이터를 @RequestBody로 Til 객체에 매핑
     @PostMapping
-    public ResponseEntity<Til> createTil(@RequestBody Til til) {
-        Til savedTil = tilService.createTil(til);
+    public ResponseEntity<Til> createTil(@RequestBody TilRequest request) {
+        Til savedTil = tilService.createTil(request);
         return ResponseEntity.ok(savedTil);
     }
 
@@ -40,8 +41,8 @@ public class TilController {
     // Update — id로 TIL 수정 (PUT /api/tils/{id})
     // 경로의 id + 요청 본문의 수정할 데이터, 둘 다 필요
     @PutMapping("/{id}")
-    public ResponseEntity<Til> updateTil(@PathVariable Long id, @RequestBody Til til) {
-        Til savedTil = tilService.updateTil(id, til);
+    public ResponseEntity<Til> updateTil(@PathVariable Long id, @RequestBody TilRequest request) {
+        Til savedTil = tilService.updateTil(id, request);
         return ResponseEntity.ok(savedTil);
     }
 

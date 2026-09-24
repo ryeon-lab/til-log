@@ -1,6 +1,7 @@
 package com.tillog.til_log.service;
 
 import com.tillog.til_log.domain.Til;
+import com.tillog.til_log.dto.TilRequest;
 import com.tillog.til_log.repository.TilRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,13 @@ public class TilService {
 
     // Create - 새 TIL 저장
     // save() 는 넘긴 객체의 PK가 null이면 INSERT, 값이 있으면 UPDATE로 자동 판단
-    public Til createTil(Til til) {
+    public Til createTil(TilRequest request) {
+        Til til = new Til();
+        til.setTilTitle(request.getTilTitle());
+        til.setTilDate(request.getTilDate());
+        til.setTilLevel(request.getTilLevel());
+        til.setTilSolve(request.getTilSolve());
+        til.setTilUrl(request.getTilUrl());
         return tilRepository.save(til);
     }
 
@@ -23,13 +30,13 @@ public class TilService {
     // 1) id로 기존 데이터를 먼저 조회 (없으면 예외 발생 -> orElseThrow())
     // 2) 조회한 객체의 필드값을 새 값으로 하나씩 교체
     // 3) 다시 save() 호출 -> 이번엔 PK가 이미 있으므로 UPDATE로 처리됨
-    public Til updateTil(Long id, Til updatedTil) {
+    public Til updateTil(Long id, TilRequest request) {
         Til til = tilRepository.findById(id).orElseThrow();
-        til.setTilTitle(updatedTil.getTilTitle());
-        til.setTilDate(updatedTil.getTilDate());
-        til.setTilLevel(updatedTil.getTilLevel());
-        til.setTilUrl(updatedTil.getTilUrl());
-        til.setTilSolve(updatedTil.getTilSolve());
+        til.setTilTitle(request.getTilTitle());
+        til.setTilDate(request.getTilDate());
+        til.setTilLevel(request.getTilLevel());
+        til.setTilUrl(request.getTilUrl());
+        til.setTilSolve(request.getTilSolve());
         return tilRepository.save(til);
     }
 
