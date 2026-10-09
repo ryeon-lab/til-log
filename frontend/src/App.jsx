@@ -19,10 +19,16 @@ function App() {
   const [url, setUrl] = useState("")
   const [level, setLevel] = useState("")
   const [solve, setSolve] = useState("")
+  const [tagText, setTagText] = useState("")
   const filteredTils = tils.filter((til) => selected === "전체" || til.tags.includes(selected))
-  
+
   const handleSave = () => {
     if (!title || !level) return   // 제목이나 레벨이 비어 있으면 저장 안 함
+
+    const tags = tagText
+      .split(",")
+      .map((t) => t.trim())
+      .filter((t) => t !== "")
 
     const today = new Date()
     const mm = String(today.getMonth() + 1).padStart(2, "0")
@@ -34,7 +40,7 @@ function App() {
       title: title,
       url: url,
       solve: solve,
-      tags: [],
+      tags: tags,
     }
 
     setTils([newTil, ...tils])   // 새 배열을 만들어서 교체
@@ -43,6 +49,7 @@ function App() {
     setUrl("")
     setLevel("")
     setSolve("")
+    setTagText("")
     setScreen("list")            // 목록 화면으로 돌아가기
   }
 
@@ -109,9 +116,16 @@ function App() {
               </div>
               <p>선택한 레벨 : {level}</p>
               <textarea
-                placeholder='풀이 & 해설'
+                placeholder='코드와 왜 이렇게 풀었는지를 함께 적어보세요.'
                 value={solve}
                 onChange={(e) => setSolve(e.target.value)}
+              />
+               <p>배운 개념</p>
+              <input
+                type="text"
+                placeholder='ex) HashMap, 배열 - 쉼표로 구분'
+                value={tagText}
+                onChange={(e) => setTagText(e.target.value)}
               />
               <button onClick={handleSave}>저장하기</button>
           </div>
