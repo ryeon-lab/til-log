@@ -1,4 +1,5 @@
 import './App.css'
+import { useState } from 'react'
 
 const tils = [
   { date: "09.18", level: "Lv.1", title: "두 수의 합이 target이 되는 쌍 찾기", tags: ["HashMap", "배열"] },
@@ -7,19 +8,24 @@ const tils = [
   { date: "09.11", level: "Lv.3", title: "최소 회의실 개수", tags: ["그리디", "정렬"] },
 ]
 
+const chips = ["전체", "HashMap", "투 포인터", "DFS/BFS", "그리디"]
+
 function App() {
+  const [selected, setSelected] = useState("전체")
+  const filteredTils = tils.filter((til) => selected === "전체" || til.tags.includes(selected))
   return (
     <div>
       <div className="filter-row">
-        <span className="chip on">전체</span>
-        <span className="chip">HashMap</span>
-        <span className="chip">투 포인터</span>
-        <span className="chip">DFS/BFS</span>
-        <span className="chip">그리디</span>
+        {chips.map((chip) => (
+          <span className={selected === chip ? "chip on" : "chip"}
+            key={chip}
+            onClick={() => setSelected(chip)}
+          >{chip}</span>
+        ))}
       </div>
 
       <div>
-        {tils.map((til) => (
+        {filteredTils.map((til) => (
           <div key={til.date} className="til-card">
             <div className="til-date">{til.date}</div>
             <div className="til-body">
